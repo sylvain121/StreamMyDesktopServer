@@ -1,0 +1,2 @@
+# StreamMyDesktopServer
+server side

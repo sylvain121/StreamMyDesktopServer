@@ -21,7 +21,7 @@ app.on('ready', function () {
     for (var k2 in interfaces[k]) {
       var address = interfaces[k][k2];
       if (address.family === 'IPv4' && !address.internal) {
-        addresses.push({label :'http://' + address.address + ':8000/'});
+        addresses.push({label :'http://' + address.address + ':8001/'});
 
       }
 

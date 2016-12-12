@@ -1,0 +1,46 @@
+<!doctype html>
+<html ng-app="remoteComputerJS">
+	<head>
+    <title>Remote Screen Interface</title>
+    <style>
+      body {
+          overflow: hidden;
+      }
+    </style>
+  <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <link rel="stylesheet" href="angular-material.min.css">
+
+	</head>
+  <body>
+    <div>
+      <select ng-model="currentFPS">
+        <option value="10">10</option>
+        <option value="20">20</option>
+        <option value="24">24</option>
+        <option value="30">30</option>
+        <option value="60">60</option>
+      </select>
+      <button ng-click="start()">Start</button>
+      <button ng-click="stop()"></button>
+    </div>
+		<div style="position:relative;" 
+			width="100%" 
+			height="100%" 
+			ng-controller="screenController"> 
+			<canvas style="position:absolute; left:0px; top:0px;" 
+				id="frameCanvas" 
+				width="1366" height="768" z-index="0"></canvas>
+		</div>
+
+
+
+	</body>
+	<script src="/socket.io/socket.io.js"></script>
+	<script src="angular.min.js"></script> 
+    <script src="angular-aria.min.js"></script> 
+    <script src="angular-animate.min.js"></script> 
+    <script src="angular-material.min.js"></script> 
+    <script src="remoteDesktopController.js"></script> 
+
+
+</html>

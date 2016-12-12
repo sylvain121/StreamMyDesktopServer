@@ -10,7 +10,9 @@
   "email": "",
   "license": "GPL-3.0",
   "dependencies": {
+    "express": "^4.14.0",
     "node-avcodec-h264-encoder": "git+https://github.com/sylvain121/node-avcodec-h264-encoder.git",
-    "robotjs": "^0.4.5"
+    "robotjs": "^0.4.5",
+    "socket.io": "^1.7.1"
   }
 }

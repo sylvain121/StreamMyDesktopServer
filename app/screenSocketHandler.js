@@ -1,13 +1,15 @@
-module.exports = function(socket) {
+const appManager = require('./appManager.js');
 
+module.exports = function(socket) {
   socket.on("start", data => {
+    appManager.getInstance().screenEncoderStart(socket);
 
   })
-    .on("stop", data = > {
+    .on("stop", data => {
 
     })
-    .on("distant_screen", data => {
-
+    .on("options", data => {
+      appManager.getInstance().setDistantConfiguration(data.width, data.height, data.fps);
     })
 
 }

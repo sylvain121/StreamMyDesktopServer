@@ -5,20 +5,22 @@ var instance = {
       width: 0,
       height: 0
     },
-    local: {
+    screen: {
       width:0,
       height:0
-    }
+    },
+    fps: 30
   },
   setScreenEncoder: function(encoder) {
     this.screenEncoder = encoder;
   },
-  setDistantScreenSize: function(width, height) {
-    screen.distant.width = width;
-    screen.distant.height = height;
+  setDistantConfiguration: function(width, height, fps) {
+    this.screen.distant.width = width;
+    this.screen.distant.height = height;
+    this.screen.fps = fps;
   },
   screenEncoderStart: function(socket) {
-    this.screenEncoder.start(this.options, socket);
+    this.screenEncoder.start(this.screen, socket);
   },
   screenEncoderStop: function() {
     this.screenEncoder.stop();

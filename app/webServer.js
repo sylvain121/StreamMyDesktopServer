@@ -12,8 +12,10 @@ app.use(express.static(__dirname+'/public'));
 var current = {
   keyboard: null,
   mouse: null,
-  screen: null
+  screen: null,
+  control: null
 }
+
 
 
 var screen = io.of('/screen')
@@ -41,6 +43,14 @@ var mouse = io.of('/mouse')
     console.log('screen disconnect');
   })
 
+var control = io.of('/control')
+  .on('connection', (s)=> {
+    console.log('new control connection');
+    webSocketControlHandler(s);
+  })
+  .on('disconnect', (s) => {
+    console.log('control disconnected');
+  })
 
 
 

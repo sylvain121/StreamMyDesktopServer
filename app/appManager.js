@@ -1,4 +1,6 @@
 var instance = {
+  transport_mode: null,
+  videoSocketServer: null;
 
   screen: {
     distant: {
@@ -6,8 +8,8 @@ var instance = {
       height: 0
     },
     screen: {
-      width:0,
-      height:0
+      width: 0,
+      height: 0
     },
     fps: 30
   },
@@ -19,11 +21,42 @@ var instance = {
     this.screen.distant.height = height;
     this.screen.fps = fps;
   },
-  screenEncoderStart: function(socket) {
-    this.screenEncoder.start(this.screen, socket);
+  setTransportMode: function(mode) {
+    switch (mode) {
+      case 'websocket':
+      case 'tcp':
+        this.transport_mode = mode;
+        this.videoSocketServer = require('./tcpSocketServer.js');
+        return {
+          mode: tcp,
+          port: this.videoSocketServer.getPort();
+        }
+        break;
+      case 'udp':
+
+        break;
+      default:
+        return "error", "unknow video mode : " + socketMode;
+    }
+  },
+  screenEncoderStart: function() {
+    var s = this.videoSocketServer.getSocket();
+    if(!s) {
+      return "no video Socket connected";
+    }
+
+    this.screenEncoder.start(this.screen, this.videoSocketServer.getWriteFn);
   },
   screenEncoderStop: function() {
     this.screenEncoder.stop();
+  },
+  handleKeyboardEvent: function(event) {
+
+  },
+  handleMouseEvent: function(event) {
+    console.log("KEY PRESSED : "
+      i + event);
+    this.
   }
 
 

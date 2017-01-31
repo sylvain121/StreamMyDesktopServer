@@ -17,16 +17,16 @@ var options = {
 }
 
 
-var socket = null;
+var socketSendFn = null;
 
-module.exports.start = function(opt, s) {
-  socket = s;
+module.exports.start = function(opt, socketWriteFn) {
+  socketSendFn = socketWriteFn;
   options = opt
   if (options.fps === 0) return "Error : no fps specified";
   if (options.distant.width <= 0 || options.distant.height <= 0)
     return "Error : screen size to small w: " + options.distant.width + "h:" + options.distant.height;
   if (running) return "already running";
-  console.log("output video dimension, width : "+ options.distant.width + " height : "+ options.distant.height+" fps : "+options.fps);
+  console.log("output video dimension, width : " + options.distant.width + " height : " + options.distant.height + " fps : " + options.fps);
   timer = setInterval(getFrame, 1000 / options.fps);
 
 }
@@ -38,7 +38,7 @@ module.exports.stop = function() {
 
 
 function getFrame() {
-  var img = screen.capture(0,0, 1920,1080);
+  var img = screen.capture();
   options.screen.width = img.width;
   options.screen.height = img.height;
 
@@ -51,7 +51,7 @@ function getFrame() {
 
   var frame = encoder.encodeFrameSync(img.image);
   if (frame !== undefined) {
-    socket.write(frame);
+    socketSendFn(frame);
     //socket.emit('frame', frame);
   }
 }

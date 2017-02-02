@@ -14,13 +14,22 @@ App.controller("screenController", function($scope, $window) {
 
   screenSocket.on('frame', function(frame) {
     console.log(frame);
+    var img = new Image();
+    img.src = 'data:image/jpg;base64,' + frame;
+    img.onload = function() {
+      frameContext.drawImage(img, 0, 0, frameCanvas.width, frameCanvas.height);
+    }
   });
 
 
 
   $scope.start = function() {
     console.log('start streaming');
-    controllerSocket.emit("distant_screen_size", {width: width, height: height, fps: $scope.currentFPS});
+    controllerSocket.emit("distant_screen_size", {
+      width: width,
+      height: height,
+      fps: $scope.currentFPS
+    });
     controllerSocket.emit("video_connexion_mode", "websocket");
     controllerSocket.emit("video_codec", "jpeg");
     controllerSocket.emit("start");

@@ -28,7 +28,7 @@ module.exports.getScreen = function(){
     },
     getWriteFn : function() {
       if(screenUserSocket) return function(frame){
-        screenUserSocket.emit('frame', frame);
+        screenUserSocket.emit('frame', frame.toString('base64'));
       } 
       return null;
     }

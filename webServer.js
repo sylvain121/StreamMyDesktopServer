@@ -6,6 +6,7 @@ var io = require('socket.io')(http);
 const robot = require('robotjs');
 
 const screenSocketHandler = require('./screenSocketHandler');
+const webSocketControlHandler = require('./webSocketControlHandler.js');
 
 app.use(express.static(__dirname+'/public'));
 

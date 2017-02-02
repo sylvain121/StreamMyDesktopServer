@@ -8,8 +8,8 @@ module.exports = function(socket) {
     var res = app.setSocket(data.mode);
       socket.emit(res);
    })
-    .on("options", data => {
-      app.setDistantConfiguration(data.width, data.height, data.fps);
+    .on("video_codec", data => {
+      socket.emit(app.setVideoCodec(data.video_codec));
     })
 
 }

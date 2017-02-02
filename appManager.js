@@ -1,6 +1,7 @@
 var instance = {
   transport_mode: null,
-  videoSocketServer: null;
+  videoSocketServer: null,
+  videoCodec: null,
 
   screen: {
     distant: {
@@ -20,6 +21,15 @@ var instance = {
     this.screen.distant.width = width;
     this.screen.distant.height = height;
     this.screen.fps = fps;
+  },
+  setVideoCodec: function (videoCodec){
+    switch(videoCodec) {
+      case "jpeg":
+        this.videoCodec = "jpeg";
+        break;
+      default:
+        return "unknow codec type : "+videoCodec;
+    }
   },
   setTransportMode: function(mode) {
     switch (mode) {
@@ -45,7 +55,7 @@ var instance = {
       return "no video Socket connected";
     }
 
-    this.screenEncoder.start(this.screen, this.videoSocketServer.getWriteFn);
+    this.screenEncoder.start(this.screen, this.videoSocketServer.getWriteFni, this.videoCodec);
   },
   screenEncoderStop: function() {
     this.screenEncoder.stop();

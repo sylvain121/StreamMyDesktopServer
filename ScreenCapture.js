@@ -1,7 +1,6 @@
-const encoder = require('node-avcodec-h264-encoder');
-const {
-  screen
-} = require('robotjs');
+var encoder = null;
+const { screen } = require('robotjs');
+
 
 var running = false;
 var options = {
@@ -19,7 +18,19 @@ var options = {
 
 var socketSendFn = null;
 
-module.exports.start = function(opt, socketWriteFn) {
+module.exports.start = function(opt, socketWriteFn, videoCodec) {
+
+  switch(videoCodec) {
+    case "jpeg":
+      encoder = require('./jpeg-encoder.js');
+      break;
+      case "h264":
+      encoder = require('node-avcodec-h264-encoder');
+      break;
+  }
+
+
+
   socketSendFn = socketWriteFn;
   options = opt
   if (options.fps === 0) return "Error : no fps specified";

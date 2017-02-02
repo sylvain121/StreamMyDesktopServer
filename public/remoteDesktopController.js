@@ -1,41 +1,45 @@
 var App = angular.module("StreamMyDesktop", ['ngMaterial']);
-App.controller("screenController", function ($scope, $window) {
-  
-  var socket = io("/screen");
+App.controller("screenController", function($scope, $window) {
+
+  var frameCanvas = document.getElementById("frameCanvas");
+  var frameContext = frameCanvas.getContext("2d");
+
+  var screenSocket = io("/screen");
   $scope.currentFPS = 20;
+  //currently only HD ready resolution
   var width = 1280;
   var height = 720;
 
-  socket.emit('options', {width: width, height: height, fps: $scope.currentFPS});
-  console.log({width: width, height: height, fps: $scope.currentFPS});
-  socket.emit('start');
+  var controllerSocket = io("/control");
+
+  screenSocket.on('frame', function(frame) {
+    console.log(frame);
+  });
+
+
+
   $scope.start = function() {
-    socket.emit("startStream", $scope.currentFPS)
+    console.log('start streaming');
+    controllerSocket.emit("distant_screen_size", {width: width, height: height, fps: $scope.currentFPS});
+    controllerSocket.emit("video_connexion_mode", "websocket");
+    controllerSocket.emit("video_codec", "jpeg");
+    controllerSocket.emit("start");
   }
 
   $scope.stop = function() {
-    socket.emit("stopStream", $scope.currentFPS)
+    //TODO
   }
 
-  $window.addEventListener("keydown", function(event){
-  socket.emit("keyDown", event.key);
+  $window.addEventListener("keydown", function(event) {
+    //  socket.emit("keyDown", event.key);
   });
 
- $window.addEventListener("keyup", function(event){
-  socket.emit("keyUp", event.key); 
- });
+  $window.addEventListener("keyup", function(event) {
+    //socket.emit("keyUp", event.key);
+  });
 
-  $window.addEventListener("mousemove", function(event){
+  $window.addEventListener("mousemove", function(event) {
     //console.log(event);
   });
-
-  socket.on('frame', function(data){
-    console.log(data);
-  });
 });
-
-
-
-
-
 

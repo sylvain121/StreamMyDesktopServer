@@ -23,6 +23,7 @@ var instance = {
     this.screen.fps = fps;
   },
   setVideoCodec: function (videoCodec){
+    console.log("video codec : "+videoCodec);
     switch(videoCodec) {
       case "jpeg":
         this.videoCodec = "jpeg";
@@ -32,21 +33,28 @@ var instance = {
     }
   },
   setTransportMode: function(mode) {
+    console.log("transport mode : "+ mode);
     switch (mode) {
       case 'websocket':
+        this.transport_mode = mode;
+        this.videoSocketServer = require('./webServer.js').getScreen();
+        return {
+          mode: "websocket",
+          port: null
+        }
       case 'tcp':
         this.transport_mode = mode;
         this.videoSocketServer = require('./tcpSocketServer.js');
         return {
-          mode: tcp,
-          port: this.videoSocketServer.getPort();
+          mode: "tcp",
+          port: this.videoSocketServer.getPort()
         }
         break;
       case 'udp':
 
         break;
       default:
-        return "error", "unknow video mode : " + socketMode;
+        return "error", "unknow transport mode : " + mode;
     }
   },
   screenEncoderStart: function() {
@@ -55,7 +63,7 @@ var instance = {
       return "no video Socket connected";
     }
 
-    this.screenEncoder.start(this.screen, this.videoSocketServer.getWriteFni, this.videoCodec);
+    this.screenEncoder.start(this.screen, this.videoSocketServer.getWriteFn(), this.videoCodec);
   },
   screenEncoderStop: function() {
     this.screenEncoder.stop();
@@ -64,9 +72,7 @@ var instance = {
 
   },
   handleMouseEvent: function(event) {
-    console.log("KEY PRESSED : "
-      i + event);
-    this.
+    console.log("KEY PRESSED : "+ event);
   }
 
 

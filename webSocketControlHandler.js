@@ -5,11 +5,14 @@ module.exports = function(socket) {
       app.setDistantConfiguration(data.width, data.height, data.fps);
     })
     .on("video_connexion_mode", data => {
-    var res = app.setSocket(data.mode);
-      socket.emit(res);
+    var res = app.setTransportMode(data);
+      socket.emit('video_connexion_mode', res);
    })
-    .on("video_codec", data => {
-      socket.emit(app.setVideoCodec(data.video_codec));
+    .on("video_codec", video_codec => {
+      socket.emit('video_codec', app.setVideoCodec(video_codec));
+    })
+    .on("start", () => {
+      app.screenEncoderStart();
     })
 
 }

@@ -8,6 +8,9 @@ const robot = require('robotjs');
 const screenSocketHandler = require('./screenSocketHandler');
 const webSocketControlHandler = require('./webSocketControlHandler.js');
 
+
+var screenUserSocket = null;
+
 app.use(express.static(__dirname+'/public'));
 
 var current = {
@@ -18,11 +21,31 @@ var current = {
 }
 
 
+module.exports.getScreen = function(){
+  return {
+    getSocket: function() {
+      return screenUserSocket
+    },
+    getWriteFn : function() {
+      if(screenUserSocket) return function(frame){
+        screenUserSocket.emit('frame', frame);
+      } 
+      return null;
+    }
+  }
+}
+
+
 
 var screen = io.of('/screen')
   .on('connection', (s)=> {
     console.log('new screen client');
-    screenSocketHandler(s);
+    if(!screenUserSocket) {
+      screenUserSocket = s;
+    }
+    else {
+      s.close();
+    }
   })
   .on('disconnect', (s) => {
     console.log('screen disconnect');

@@ -1,3 +1,5 @@
+var keyboard = require('./keyBoard.js');
+
 var instance = {
   transport_mode: null,
   videoSocketServer: null,
@@ -68,11 +70,13 @@ var instance = {
   screenEncoderStop: function() {
     this.screenEncoder.stop();
   },
-  handleKeyboardEvent: function(event) {
-
+  toggleKeyDown: function(key) {
+    keyboard.toggleKeyDown(key);
+  },
+  toggleKeyUp: function(key){
+    keyboard.toggleKeyUp(key);
   },
   handleMouseEvent: function(event) {
-    console.log("KEY PRESSED : "+ event);
   }
 
 

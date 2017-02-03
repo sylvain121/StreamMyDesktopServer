@@ -1,5 +1,7 @@
 var encoder = null;
-const { screen } = require('robotjs');
+const {
+  screen
+} = require('robotjs');
 
 
 var running = false;
@@ -20,11 +22,11 @@ var socketSendFn = null;
 
 module.exports.start = function(opt, socketWriteFn, videoCodec) {
 
-  switch(videoCodec) {
+  switch (videoCodec) {
     case "jpeg":
       encoder = require('./jpeg-encoder.js');
       break;
-      case "h264":
+    case "h264":
       encoder = require('node-avcodec-h264-encoder');
       break;
   }
@@ -43,7 +45,11 @@ module.exports.start = function(opt, socketWriteFn, videoCodec) {
 }
 
 module.exports.stop = function() {
-  clearInterval(timer);
+  try {
+    clearInterval(timer);
+  } catch (e) {
+    console.error(e);
+  }
   running = false;
 }
 

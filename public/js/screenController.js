@@ -19,11 +19,13 @@ App.controller("screenController", function($scope, $window, ConnectService) {
   }
 
   $window.addEventListener("keydown", function(event) {
-    //  socket.emit("keyDown", event.key);
+    console.log("down", event.key);
+    ConnectService.keyDown(event.key);
   });
 
   $window.addEventListener("keyup", function(event) {
-    //socket.emit("keyUp", event.key);
+    console.log("up", event.key);
+    ConnectService.keyUp(event.key); 
   });
 
   $window.addEventListener("mousemove", function(event) {

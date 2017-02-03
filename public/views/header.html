@@ -1,0 +1,38 @@
+<div class="pageHeader" ng-controller="headerController">
+  <md-content>
+    <md-toolbar class="md-hue-2">
+      <div class="md-toolbar-tools">
+        <h2>
+          <span class="title">
+            Stream My Desktop Web client
+          </span>
+        </h2>
+        <span flex></span>
+        <span ng-if="!isRunning()">
+          <md-input-container>
+            <label>Codec</label>
+            <md-select ng-model="codec">
+              <md-option ng-value="c" ng-repeat="c in codecs">{{c}}</md-option>
+            </md-select>
+          </md-input-container>
+          <md-input-container>
+            <label>Resolution</label>
+            <md-select ng-model="selectedResolution" ng-model-options="{trackBy: '$value'}">
+              <md-option ng-value="$index" ng-repeat="res in allRes">{{ res.name }}</md-option>
+            </md-select>
+          </md-input-container>
+          <md-input-container>
+            <label>fps</label>
+            <md-select ng-model="fps">
+              <md-option ng-value="frameRate" ng-repeat="frameRate in frameRates">{{frameRate}}</md-option>
+            </md-select>
+          </md-input-container>
+          <md-button class="md-primary md-warn md-raised" ng-click="start()">Start</md-button>
+        </span>
+        <span ng-if="isRunning()">
+          <md-button class="md-primary md-warn md-raised" ng-click="stop()">Stop</md-button>
+        </span>
+      </div>
+  </md-toolbar> </md-content>
+</div>
+

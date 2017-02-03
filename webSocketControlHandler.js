@@ -14,6 +14,9 @@ module.exports = function(socket) {
     .on("start", () => {
       app.screenEncoderStart();
     })
+    .on('stop', ()=> {
+      app.screenEncoderStop();
+    })
 
 }
 

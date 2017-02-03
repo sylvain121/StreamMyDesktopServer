@@ -44,7 +44,7 @@ var screen = io.of('/screen')
       screenUserSocket = s;
     }
     else {
-      s.close();
+      s.disconnect();
     }
   })
   .on('disconnect', (s) => {

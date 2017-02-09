@@ -17,6 +17,16 @@ var options = {
   fps: 0
 }
 
+module.exports.getLocalScreenSize = function() {
+    var img = screen.capture();
+  
+  return {
+    width: img.width,
+    height: img.height
+  };
+
+}
+
 
 var socketSendFn = null;
 

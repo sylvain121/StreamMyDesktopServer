@@ -1,4 +1,5 @@
 var keyboard = require('./keyBoard.js');
+var mouse = require('./mouse.js');
 
 var instance = {
   transport_mode: null,
@@ -23,6 +24,9 @@ var instance = {
     this.screen.distant.width = width;
     this.screen.distant.height = height;
     this.screen.fps = fps;
+
+
+    this.screen.screen = this.screenEncoder.getLocalScreenSize(); 
   },
   setVideoCodec: function (videoCodec){
     console.log("video codec : "+videoCodec);
@@ -76,10 +80,13 @@ var instance = {
   toggleKeyUp: function(key){
     keyboard.toggleKeyUp(key);
   },
-  handleMouseEvent: function(event) {
+  mouseMove: function(x, y){
+    if(!mouse.isConfigured()) mouse.setParameters(this.screen);
+    mouse.move(x, y);
+  },
+  mouseClick: function(button, state){
+    mouse.toggle(button, state);
   }
-
-
 }
 
 

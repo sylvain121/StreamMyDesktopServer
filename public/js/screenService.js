@@ -16,6 +16,7 @@ App.service('screenService', function($window) {
       curWidth = $window.innerWidth;
     if (maxWidth == curWidth && maxHeight == curHeight) {
       fullScreen = true;
+      console.log("fullscreen");
     } else {
       fullScreen = false;
     }

@@ -59,10 +59,18 @@ App.service("ConnectService", function() {
     },
     this.keyDown = function(key) {
       this.keyboardSocket.emit("down", key);
-    }
+    },
   this.keyUp = function(key) {
     this.keyboardSocket.emit("up", key);
-  }
+  },
+    this.mouseMove = function(x, y){
+      this.mouseSocket.emit("move", {x:x, y:y});
+    },
+    this.mouseButton = function(button, action){
+      if(action === "mouseup") action = "up";
+      if(action === "mousedown") action = "down";
+      this.mouseSocket.emit("click", {button:button, state:action});
+    }
 
 
 });

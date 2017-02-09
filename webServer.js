@@ -6,7 +6,7 @@ var io = require('socket.io')(http);
 const robot = require('robotjs');
 
 const screenSocketHandler = require('./screenSocketHandler');
-const { controlHandler, keyboardHandler } = require('./webSocketHandler.js');
+const { controlHandler, keyboardHandler, mouseHandler } = require('./webSocketHandler.js');
 
 
 var screenUserSocket = null;
@@ -63,6 +63,7 @@ var keyboard = io.of('/keyboard')
 var mouse = io.of('/mouse')
   .on('connection', (s)=> {
     console.log('new mouse client');
+    mouseHandler(s);
   })
   .on('disconnect', (s) => {
     console.log('mouse disconnect');

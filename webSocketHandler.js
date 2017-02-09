@@ -27,4 +27,11 @@ module.exports.keyboardHandler = function(socket) {
       app.toggleKeyUp(key);
     })
 }
-
+module.exports.mouseHandler = function(socket) {
+  socket.on("move", data => {
+    app.mouseMove(data.x, data.y);
+  })
+    .on("click", data => {
+      app.mouseClick(data.button, data.state);
+    })
+}

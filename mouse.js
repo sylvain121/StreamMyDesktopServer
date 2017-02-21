@@ -1,4 +1,4 @@
-var robot = require('robotjs');
+const x11 = require('node-x11');
 var x_ratio = 0;
 var y_ratio = 0;
 
@@ -16,7 +16,8 @@ y_ratio = parseInt(params.screen.height,10) / parseInt(params.distant.height,10)
 }
 
 module.exports.move  = function(x, y) {
-  robot.moveMouse(x*x_ratio, y*y_ratio);
+  console.log(x,x_ratio, y,y_ratio)
+  x11.mouseMove(x*x_ratio, y*y_ratio);
 
 }
 
@@ -26,6 +27,21 @@ module.exports.move  = function(x, y) {
  */
 module.exports.toggle = function(button, newStat) {
 
-  robot.mouseToggle(newStat, button);
+  var button_int = 0;
+  var isDown = false;
+  isDown = (newStat === "down") ? true : false;
+  switch(button) {
+    case "left":
+      button_int = 1;
+      break;
+    case "middle":
+      button_int = 2;
+      break;
+    case "right":
+      button_int = 3;
+      break;
+  }
+  console.log(button_int, button, newStat, isDown);
+  x11.mouseButton(button_int, isDown);
 
 }

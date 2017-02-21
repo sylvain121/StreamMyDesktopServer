@@ -15,7 +15,7 @@
     "lodash": "^4.17.4",
     "node-avcodec-h264-encoder": "git+https://github.com/sylvain121/node-avcodec-h264-encoder.git",
     "node-bitmap-resize": "git+https://github.com/sylvain121/node-bitmap-resize.git",
-    "robotjs": "^0.4.5",
+    "node-x11": "^1.0.1",
     "socket.io": "^1.7.1"
   }
 }

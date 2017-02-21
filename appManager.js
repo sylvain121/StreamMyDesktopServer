@@ -1,5 +1,6 @@
 var keyboard = require('./keyBoard.js');
 var mouse = require('./mouse.js');
+require("node-x11").init();
 
 var instance = {
   transport_mode: null,
@@ -18,6 +19,7 @@ var instance = {
     fps: 30
   },
   setScreenEncoder: function(encoder) {
+    console.log("set encode type");
     this.screenEncoder = encoder;
   },
   setDistantConfiguration: function(width, height, fps) {
@@ -25,7 +27,7 @@ var instance = {
     this.screen.distant.height = height;
     this.screen.fps = fps;
 
-
+    console.log("get local screen size");
     this.screen.screen = this.screenEncoder.getLocalScreenSize(); 
   },
   setVideoCodec: function (videoCodec){
@@ -64,6 +66,7 @@ var instance = {
     }
   },
   screenEncoderStart: function() {
+    console.log("request encoder start");
     var s = this.videoSocketServer.getSocket();
     if(!s) {
       return "no video Socket connected";

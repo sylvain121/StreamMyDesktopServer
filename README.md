@@ -8,7 +8,7 @@
 
 ## start with : 
 ```
-  node core.js
+  node index.js
 ```
 
 

@@ -1,4 +1,4 @@
-App.controller("headerController", function($scope, ConnectService) {
+App.controller("headerController", function($scope, AppManager, $log) {
 
     $scope.codec = "jpeg";
     $scope.codecs = ["jpeg"];
@@ -13,23 +13,34 @@ App.controller("headerController", function($scope, ConnectService) {
         name: "1280x720"
     }]
 
-    $scope.selectedResolution = {};
 
-    $scope.isRunning = ConnectService.isRunning;
+    $scope.$watch(AppManager.streamRunning, () => {
+        console.log("running : " + AppManager.streamRunning);
+    })
 
-    $scope.fps = 20;
+    $scope.selectedResolution = 1;
+
+    $scope.running = AppManager.streamRunning;
+
+    $scope.fps = 30;
     $scope.frameRates = [10, 20, 24, 30, 60];
 
     $scope.start = function(codec, resolution, fps) {
-        console.log(codec, resolution, fps);
-        ConnectService.setTransportMode('websocket');
-        ConnectService.setCodecType(codec);
-        ConnectService.setStreamParameters(resolution.width, resolution.height, fps);
-        ConnectService.sendStartCommand();
+
+        var parameters = {
+            width: $scope.allRes[resolution].width,
+            height: $scope.allRes[resolution].height,
+            fps: fps,
+            codec: codec,
+            transport: 'websocket'
+        };
+        $log.debug(parameters)
+
+        AppManager.startStream(parameters);
     }
 
     $scope.stop = function() {
-        ConnectService.sendStopCommand();
+        AppManager.stopStream();
     }
 
 

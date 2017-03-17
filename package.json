@@ -10,6 +10,9 @@
   "email": "",
   "license": "GPL-3.0",
   "dependencies": {
+    "eslint": "^3.17.1",
+    "eslint-config-angular": "^0.5.0",
+    "eslint-plugin-angular": "^1.6.2",
     "express": "^4.14.0",
     "jpeg-turbo": "^0.4.0",
     "lodash": "^4.17.4",
